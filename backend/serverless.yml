@@ -9,6 +9,8 @@ plugins:
   - serverless-plugin-canary-deployments
   - serverless-dynamodb-local
   - serverless-offline
+  - serverless-plugin-tracing
+
 
 provider:
   name: aws
@@ -17,10 +19,17 @@ provider:
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'us-west-2'}
 
- # tracing:
-  #  lambda: true
-   # apiGateway: true
-
+  tracing:
+    lambda: true
+    apiGateway: true
+    iamRoleStatements:            # Permissions here or under every function to trace.
+      - Effect: 'Allow'           # Permissions
+        Action:
+          - 'xray:PutTraceSegments'             # Tracing permissions
+          - 'xray:PutTelemetryRecords'
+        Resource:
+          - '*'
+          
   environment: 
     TODOS_TABLE: udacity-manoj-p4-serverless-application-todo-${self:provider.stage}
     TODO_ID_INDEX: TodoIdIndex

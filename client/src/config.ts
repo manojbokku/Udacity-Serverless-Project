@@ -1,5 +1,5 @@
 //  API id used by the frontend to interact with the backend
-const apiId = 'q55umn7b96'
+const apiId = 'vtzg7cpsfe'
 export const apiEndpoint = `https://${apiId}.execute-api.us-west-2.amazonaws.com/dev`
 
 export const authConfig = {
